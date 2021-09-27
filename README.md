@@ -8,7 +8,7 @@ This plugin is meant to provide a quick start template for anyone who would like
 (https://github.com/illuminate/database) known from the Laravel framework in a WordPress plugin.
 
 By installing this plugin you can start developing your own WordPress plugin with the use of Eloquent. Of course you
-don't have to use this Eloquent to build your queries but if you don't you're probably better off not using this plugin
+don't have to use Eloquent to build your queries but if you don't you're probably better off not using this plugin
 and just querying with plain SQL.
 
 ### Setup
