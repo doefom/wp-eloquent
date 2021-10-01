@@ -1,1 +1,4 @@
 vendor
+tests/.env
+tests/.env.development
+tests/phpunit.phar
