@@ -92,3 +92,7 @@ This command will perform the WordPress 5 minute installation just without the U
 Usually this command is used after resetting the database to get back to a basic WordPress installation.
 
 You may adapt the parameters `--url`, `--title`, etc. according to your needs.
+
+## LICENSE
+
+This project is licensed under the MIT license.
