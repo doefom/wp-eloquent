@@ -12,18 +12,16 @@ require_once '../App.php';
 
 final class WPPostTest extends TestCase {
 
-	private static $numOfPostsToInsert = 1;
-
 	/**
 	 * @beforeClass
 	 *
-	 * Insert n posts.
+	 * Init eloquent
 	 */
 	public static function insertPosts(): void {
 		// Load dotenv
 		$dotenv = Dotenv::createImmutable( __DIR__ );
 		$dotenv->load();
-		// Get .env variables
+		// Get .env variables. We use .env variables because the wp-config variables are not loaded when running tests.
 		$DB_HOST     = $_ENV['DB_HOST'];
 		$DB_NAME     = $_ENV['DB_NAME'];
 		$DB_USER     = $_ENV['DB_USER'];
@@ -31,27 +29,6 @@ final class WPPostTest extends TestCase {
 		// Init eloquent
 		$app = new App();
 		$app->initEloquent( $DB_HOST, $DB_NAME, $DB_USER, $DB_PASSWORD );
-		// Create some posts
-		$faker = Factory::create();
-		for ( $i = 0; $i < self::$numOfPostsToInsert; $i ++ ) {
-			// Create post
-			$post = WPPost::create( [
-				'post_author'           => 1,
-				'post_date'             => date_create(),
-				'post_content'          => $faker->text( 200 ),
-				'post_title'            => $faker->text( 20 ),
-				'post_excerpt'          => '',
-				'to_ping'               => 1,
-				'pinged'                => 1,
-				'post_content_filtered' => '',
-			] );
-			// Create postmeta
-			WPPostmeta::create( [
-				'post_id'    => $post->id, // must be 'id' although custom primary key is 'ID'
-				'meta_key'   => $faker->text( '8' ),
-				'meta_value' => $faker->text( '8' ),
-			] );
-		}
 	}
 
 	public function testGetAllPosts() {
@@ -59,24 +36,64 @@ final class WPPostTest extends TestCase {
 		$this->assertGreaterThan( 0, $posts->count() );
 	}
 
-	public function testGet() {
+	public function testGetPostWithPostMeta() {
+		$post = WPPost::find( 2 ); // Post with ID = 2 is in wp core installation by default and has postmeta value.
+		$this->assertGreaterThan( 0, $post->postmeta->count() );
 	}
 
-	/**
-	 * @afterClass
-	 *
-	 * Delete the n posts we've inserted in the beforeClass method.
-	 */
-	public
-	static function deleteInsertedPosts(): void {
-		$postsToDelete = WPPost::all()->reverse()->take( self::$numOfPostsToInsert );
-		var_dump( $postsToDelete->count() );
-		foreach ( $postsToDelete as $post ) {
-			// Delete related postmeta
-			$post->postmeta()->delete();
-			// Delete post
-//			WPPost::where( 'ID', $post->ID )->delete();
-		}
+	public function testInsertPost() {
+		$post = $this->insertPost();
+		$this->assertNotFalse($post);
+		$post->delete();
+	}
+
+	public function testUpdatePost() {
+		// Insert post
+		$post = $this->insertPost();
+		$this->assertNotFalse($post);
+		// Update post
+		$newTitle = "Updated Title";
+		$post->post_title = $newTitle;
+		$post->save();
+		$this->assertEquals($newTitle, $post->post_title);
+		// Delete post
+		$post->delete();
+	}
+
+	public function testDeletePost() {
+		// Insert post
+		$post = $this->insertPost();
+		$this->assertNotFalse($post);
+		// Delete post
+		$post->delete();
+		$postDeleted = WPPost::where( 'ID', $post->ID )->first();
+		$this->assertNull($postDeleted);
+	}
+
+	public function testInsertPostAndPostmeta() {
+		// Create post
+		$post = $this->insertPost();
+		$this->assertNotFalse($post);
+		// Add postmeta
+		$post->postmeta()->save( new WPPostmeta([ 'meta_key' => 'some_key', 'meta_value' => 'some_value' ]) );
+		$this->assertEquals( 1, $post->postmeta->count() );
+		// Delete postmeta
+		$post->postmeta()->delete();
+		// Delete post
+		$post->delete();
+	}
+
+	private function insertPost() {
+		return WPPost::create( [
+			'post_author'           => 1,
+			'post_date'             => date_create(),
+			'post_content'          => 'This is a test post and its content.',
+			'post_title'            => 'Test post title',
+			'post_excerpt'          => '',
+			'to_ping'               => 1,
+			'pinged'                => 1,
+			'post_content_filtered' => '',
+		] );
 	}
 
 }

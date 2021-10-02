@@ -8,7 +8,7 @@ class WPPostmeta extends Model {
 
 	public $timestamps = false;
 	protected $table = 'wp_postmeta';
-	protected $primaryId = 'meta_id';
+	protected $primaryKey = 'meta_id';
 	protected $fillable = [
 		'meta_id',
 		'post_id',

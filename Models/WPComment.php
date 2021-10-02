@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WPComment extends Model {
 
 	protected $table = 'wp_comments';
-	protected $primaryId = 'comment_ID';
+	protected $primaryKey = 'comment_ID';
 
 	public function user() {
 		return $this->belongsTo( WPUser::class );

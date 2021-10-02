@@ -8,7 +8,7 @@ class WPPost extends Model {
 
 	public $timestamps = false;
 	protected $table = 'wp_posts';
-	protected $primaryId = 'ID';
+	protected $primaryKey = 'ID';
 	protected $fillable = [
 		'post_author',
 		'post_date',
@@ -35,7 +35,7 @@ class WPPost extends Model {
 	];
 
 	public function postmeta() {
-		return $this->hasMany( WPPostmeta::class, 'post_id', 'ID' );
+		return $this->hasMany( WPPostmeta::class, 'post_id' );
 	}
 
 	public function user() {
@@ -43,7 +43,7 @@ class WPPost extends Model {
 	}
 
 	public function term_relationships() {
-		return $this->hasMany( WPTermRelationship::class, 'object_id', 'ID' );
+		return $this->hasMany( WPTermRelationship::class, 'object_id' );
 	}
 
 }

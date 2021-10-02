@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WPTerm extends Model {
 
 	protected $table = 'wp_terms';
-	protected $primaryId = 'term_id';
+	protected $primaryKey = 'term_id';
 
 	public function term_taxonomy() {
 		return $this->hasMany( WPTermTaxonomy::class, 'term_id', 'term_id' );

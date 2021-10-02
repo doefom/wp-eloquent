@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class WPOption extends Model {
 
 	protected $table = 'wp_options';
-	protected $primaryId = 'option_id';
+	protected $primaryKey = 'option_id';
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WPUser extends Model {
 
 	protected $table = 'wp_users';
-	protected $primaryId = 'ID';
+	protected $primaryKey = 'ID';
 
 	public function posts() {
 		return $this->hasMany( WPPost::class, 'post_author', 'ID');
