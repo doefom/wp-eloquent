@@ -12,8 +12,8 @@ License: MIT License
 
 use WPEloquent\App;
 
-require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
-require 'App.php';
+require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
+require_once plugin_dir_path(__FILE__) . 'App.php';
 
 $app = new App();
 $app->initEloquent();
