@@ -6,18 +6,18 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 
-require_once 'Models/WPComment.php';
-require_once 'Models/WPCommentmeta.php';
-require_once 'Models/WPLink.php';
-require_once 'Models/WPOption.php';
-require_once 'Models/WPPost.php';
-require_once 'Models/WPPostmeta.php';
-require_once 'Models/WPTerm.php';
-require_once 'Models/WPTermmeta.php';
-require_once 'Models/WPTermRelationship.php';
-require_once 'Models/WPTermTaxonomy.php';
-require_once 'Models/WPUser.php';
-require_once 'Models/WPUsermeta.php';
+require_once 'models/WPComment.php';
+require_once 'models/WPCommentmeta.php';
+require_once 'models/WPLink.php';
+require_once 'models/WPOption.php';
+require_once 'models/WPPost.php';
+require_once 'models/WPPostmeta.php';
+require_once 'models/WPTerm.php';
+require_once 'models/WPTermmeta.php';
+require_once 'models/WPTermRelationship.php';
+require_once 'models/WPTermTaxonomy.php';
+require_once 'models/WPUser.php';
+require_once 'models/WPUsermeta.php';
 
 class App {
 
