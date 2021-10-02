@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: WP Eloquent
-Plugin URI:
+Plugin URI: https://github.com/doefom/wp-eloquent
 Description: This plugin is meant to provide a quick start template for anyone who would like to use the Eloquent query builder (https://github.com/illuminate/database) known from the Laravel framework in a WordPress plugin.
 Version: 1.0
 Author: doefom
