@@ -11,12 +11,22 @@ By installing this plugin you can start developing your own WordPress plugin wit
 don't have to use Eloquent to build your queries but if you decide not to you're probably better off not using this plugin
 and just querying with plain SQL.
 
+## Prerequisites
+
+To use this plugin you need to have:
+- **composer** installed (https://getcomposer.org/)
+
 ## Installation
 
 Clone this repository inside your WordPress installation's plugin directory. Usually this folder is located at
 `/wp-content/plugins/`
 
-Navigate in this directory and run:
+After cloning the repository navigate to wp-eloquent:
+```
+cd wp-eloquent
+```
+
+Install dependencies:
 ```
 composer install
 ```
