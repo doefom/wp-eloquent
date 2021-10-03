@@ -1,6 +1,6 @@
 .idea
 vendor
 composer.lock
-tests/.env
-tests/.env.development
+.env.development
+.env.development.example
 tests/phpunit.phar

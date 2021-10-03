@@ -62,15 +62,12 @@ $postmeta = \WPEloquent\Models\WPPostmeta::where('post_id', 2)->get();
 
 ### PHPUnit
 
-Tests are written with the testing library phpunit. To test the plugin make sure you have phpunit installed.
-For further information visit: https://phpunit.de/
+Tests for this plugin are written for **PHPUnit** (https://phpunit.de/).
+By default, when running `composer install` PHPUnit is required as a dev dependency. So basically you should be good to go.
 
-### .env
+Keep in mind that tests require a database connection. So in order for the tests to work you need to provide the correct
+database credentials in your `wp-config.php` file.
 
-We also need to use a `.env` file. This is necessary to connect to the database because when running
-tests there is no WordPress environment which means that all variables and values from `wp-config.php` will be undefined.
-
-To connect to your database when testing copy the `.env.example` into the `tests` directory, rename it to `.env` and provide your database credentials.
 
 ### Setting up the database for testing
 
@@ -84,12 +81,21 @@ We use WP CLI to install, seed and reset the database for this plugin.
 
 #### WP CLI Seed Command (Seeding the database)
 
-After installing the WP CLI Seed Command run `wp seed` to seed the database. You may write additional seeders for you specific project.
+After installing the WP CLI Seed Command to seed the database run:
+```
+wp seed
+```
+You may write additional seeders for you specific project.
 For now we only have seeders for the tables _wp_posts_ and _wp_postmeta_.
 
 #### Reset the database
 
-Run ` wp db reset` to reset the database by deleting all tables in the database. So make sure you don't accidentally run this command.
+To reset the database by **deleting all tables in the database** run:
+```
+wp db reset
+```
+
+So make sure you don't accidentally run this command.
 
 #### WordPress Core Installation
 
@@ -102,6 +108,13 @@ This command will perform the WordPress 5 minute installation just without the U
 Usually this command is used after resetting the database to get back to a basic WordPress installation.
 
 You may adapt the parameters `--url`, `--title`, etc. according to your needs.
+
+### Doing all at once (Reset DB, Core installation, Seed DB)
+
+Run this command to completely reset your database for testing:
+```
+wp db reset --yes && wp core install --url=localhost:8000 --title=WordPress_Playground --admin_user=admin --admin_password=qwe123 --admin_email=example@example.org && wp seed
+```
 
 ## LICENSE
 

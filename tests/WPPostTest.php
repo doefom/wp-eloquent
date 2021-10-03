@@ -7,29 +7,22 @@ use WPEloquent\App;
 use WPEloquent\Models\WPPost;
 use WPEloquent\Models\WPPostmeta;
 
-require_once '../vendor/autoload.php';
-require_once '../App.php';
+require_once __DIR__ . '/../../../../wp-load.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../App.php';
 
 final class WPPostTest extends TestCase {
 
-	/**
-	 * @beforeClass
-	 *
-	 * Init eloquent
-	 */
-	public static function insertPosts(): void {
-		// Load dotenv
-		$dotenv = Dotenv::createImmutable( __DIR__ );
-		$dotenv->load();
-		// Get .env variables. We use .env variables because the wp-config variables are not loaded when running tests.
-		$DB_HOST     = $_ENV['DB_HOST'];
-		$DB_NAME     = $_ENV['DB_NAME'];
-		$DB_USER     = $_ENV['DB_USER'];
-		$DB_PASSWORD = $_ENV['DB_PASSWORD'];
-		// Init eloquent
-		$app = new App();
-		$app->initEloquent( $DB_HOST, $DB_NAME, $DB_USER, $DB_PASSWORD );
-	}
+    /**
+     * @beforeClass
+     *
+     * Init eloquent
+     */
+    public static function init()
+    {
+        $app = new App();
+        $app->initEloquent();
+    }
 
 	public function testGetAllPosts() {
 		$posts = WPPost::all();
